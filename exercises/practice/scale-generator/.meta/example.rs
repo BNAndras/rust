@@ -319,7 +319,7 @@ impl Scale {
     }
 
     pub fn chromatic(tonic: &str) -> Result<Scale, Error> {
-        Scale::new(tonic, "mmmmmmmmmmmm")
+        Scale::new(tonic, "mmmmmmmmmmm")
     }
 
     pub fn enumerate(&self) -> Vec<String> {
@@ -342,7 +342,7 @@ mod test {
 
     #[test]
     fn parse_chromatic() {
-        assert!("mmmmmmmmmmmm".parse::<Intervals>().is_ok());
+        assert!("mmmmmmmmmmm".parse::<Intervals>().is_ok());
     }
 
     #[test]

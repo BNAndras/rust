@@ -1,0 +1,19 @@
+use scale_generator::Scale;
+{% for test in cases %}
+#[test]
+{% if loop.index != 1 -%}
+#[ignore]
+{% endif -%}
+fn {{ test.description | slugify | replace(from="-", to="_") }}() {
+    let tonic = {{ test.input.tonic | json_encode() }};
+{% if test.property == "chromatic" -%}
+    let scale = Scale::chromatic(tonic).unwrap();
+{%- else -%}
+    let intervals = {{ test.input.intervals | json_encode() }};
+    let scale = Scale::new(tonic, intervals).unwrap();
+{%- endif %};
+    let output = scale.enumerate();
+    let expected = {{ test.expected | json_encode() }};
+    assert_eq!(output, expected);
+}
+{% endfor -%}
